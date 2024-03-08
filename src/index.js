@@ -8,5 +8,5 @@ app.use(express.json())
 require('./routes')(app)
 
 app.listen(port, () => {
-    console.log(`Aplicação rodadno na porta ${port}`);
+    console.log(`Aplicação rodando na porta ${port}`);
 })
