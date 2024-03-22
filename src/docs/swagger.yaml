@@ -1,0 +1,329 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API HORUS ALUNOS",
+    "description": "Documentação da API HORUS ALUNOS"
+  },
+  "host": "localhost:3000",
+  "basePath": "",
+  "schemes": [
+    ""
+  ],
+  "consumes": [
+    "aplication/json"
+  ],
+  "produces": [
+    "aplication/json"
+  ],
+  "paths": {
+    "/aluno": {
+      "get": {
+        "tags": [
+          "Alunos"
+        ],
+        "summary": "Consulta lista de Alunos",
+        "description": "Consulta lista de Alunos, todos os Alunos cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "alunos": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 5
+                      },
+                      "nome": {
+                        "type": "string",
+                        "example": "Renan"
+                      },
+                      "sobrenome": {
+                        "type": "string",
+                        "example": "Schabarum"
+                      },
+                      "periodo": {
+                        "type": "number",
+                        "example": 5
+                      },
+                      "observacao": {
+                        "type": "string",
+                        "example": "Teste documentação"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Alunos"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para inserir um novo aluno!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "nome": {
+                  "type": "string",
+                  "example": "Nome"
+                },
+                "sobrenome": {
+                  "type": "string",
+                  "example": "Teste"
+                },
+                "periodo": {
+                  "type": "number",
+                  "example": 5
+                },
+                "observador": {
+                  "type": "string",
+                  "example": "Aluno"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro incluído",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Registro incluído no banco de dados!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "201": {
+            "description": "Criado"
+          },
+          "500": {
+            "description": "Erro ao tentar gravar o registro",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aluno/{id}": {
+      "delete": {
+        "tags": [
+          "Alunos"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Alunos"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para inserir um novo aluno!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "AtualizaCad"
+                },
+                "sobrenome": {
+                  "type": "string",
+                  "example": "AtualizaCad"
+                },
+                "periodo": {
+                  "type": "number",
+                  "example": 5
+                },
+                "observacao": {
+                  "type": "string",
+                  "example": "Aluno"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro alterado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Registro alterado no banco de dados!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "500": {
+            "description": "Erro ao alterar gravar o registro",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Alunos"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para inserir um novo aluno!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 5
+                },
+                "nome": {
+                  "type": "string",
+                  "example": "AtualizaCad"
+                },
+                "sobrenome": {
+                  "type": "string",
+                  "example": "AtualizaCad"
+                },
+                "periodo": {
+                  "type": "number",
+                  "example": 5
+                },
+                "observacao": {
+                  "type": "string",
+                  "example": "Aluno"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro alterado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Registro alterado no banco de dados!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "500": {
+            "description": "Erro ao tentar alterar o registro",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,6 +14,7 @@ const postAlunos = async (req, res, next) => {
         const retorno = await alunoService.postAlunos(req.body)
         res.status(201).json(retorno)
     } catch (err){
+        console.log(req.body);
         res.status(500).send(err.message);
     }   
 }
