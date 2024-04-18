@@ -33,9 +33,8 @@ const patchPassword = async (req, res, next) => {
     try {
         let params = req.body
         params.id = req.params.id
-        const retorno = await usuarioService.patchPassword(params)
-        .then(ret => res.status(200).send(ret))
-        .catch(err => res.status(500).send(err.message))
+        let ret = await userService.patchPassword(params)
+        res.status(201).send(ret)
     } catch (err){
         res.status(500).send(err.message)
     }

@@ -30,7 +30,7 @@ const deleteUser = async (params) => {
 }
 
 const getUserId = async (id) =>{
-    const query = 'SELECT usurname, salt, password FROM users WHERE id = $1';
+    const query = 'SELECT password, salt FROM users WHERE id = $1';
     result = await db.query(query, [id])
     return result.rows[0];
 }
@@ -41,22 +41,26 @@ const sql_patch =
 
 const patchPassword = async (params) => {
     let binds = []
-    let hashedNewPassword;
-    const {id, name, password, newPassword} = params
+    const {id, name, pass, newpass} = params
+    console.log(params)
+    binds.push(id)
     const userData = await getUserId(id)
-    let validorPassword = cript.comparePassword(userData.password,userData.salt, password)
+    console.log('Passo')
+    
+    let validorPassword = cript.comparePassword(userData.password, userData.salt, pass)
     if(validorPassword){
-        validorPassword = cript.comparePassword(userData.password,userData.salt, newPassword)
-        if(!validorPassword){
-            hashedNewPassword = cript.hashPassword(newPassword, userData.salt)
-            let sql = ` password = '${hashedNewPassword}' where id = ${id} `
-            binds.push(sql)
-            console.log(binds)  
-            return await db.query(sql_patch + sql)
-        }else{
-            console.error('Senha igual');
-            return "Nova senha deve ser diferente da senha atual.";
+    let sql = sql_patch
+        if (newpass) {
+           const {salt, hashedPassword} = cript.criarUsuario(newpass)
+           sql += ` password = $2, salt = $3 `
+           binds.push(hashedPassword)
+           binds.push(salt)
         }
+        if (name) {
+            sql += ` , username = $4`
+            binds.push(name)
+         }
+        return await db.query(sql + ` where id = $1`)
     }else{
        return "Senha inválida.";
     }
